@@ -17,7 +17,7 @@ function App() {
   return (
     <Router>
       <Header search={search} handleSearch={handleSearch} />
-      <Container>
+      <Container className='pt-4 mt-4'>
         <Routes>
           <Route path="/" element={<Home search={search} books={fantasy} />} />
           <Route path="/book/:asin/" element={<BookDetails />} />
