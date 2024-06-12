@@ -17,11 +17,13 @@ function App() {
   return (
     <Router>
       <Header search={search} handleSearch={handleSearch} />
-      <Routes>
-        <Route path="/" element={<Container><Home search={search} books={fantasy} /></Container>} />
-        <Route path="/book/:asin/" element={<Container><BookDetails /></Container>} />
-        <Route path="*" element={<Container><NotFound /></Container>} />
-      </Routes>
+      <Container>
+        <Routes>
+          <Route path="/" element={<Home search={search} books={fantasy} />} />
+          <Route path="/book/:asin/" element={<BookDetails />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Container>
       <Footer />
     </Router>
   )
