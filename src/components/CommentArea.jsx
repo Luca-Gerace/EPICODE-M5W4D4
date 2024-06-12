@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button, Dropdown, Modal } from 'react-bootstrap';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const url = 'https://striveschool-api.herokuapp.com/api/comments/';
 const headers = {
@@ -12,6 +13,7 @@ function CommentArea({ asin, showModal, handleCloseModal }) {
   const [reviews, setReviews] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [selectValue, setSelectValue] = useState("");
+  const [editingReview, setEditingReview] = useState(null);
 
   // Rates
   const rates = [1, 2, 3, 4, 5];
@@ -23,11 +25,11 @@ function CommentArea({ asin, showModal, handleCloseModal }) {
       .then(data => setReviews(data));
   }, [asin]);
 
-  // New review handler
-  const handleNewReview = () => {
+  // Create review handler
+  const handleCreateReview = () => {
     const newReview = {
       'comment': inputValue,
-      'rate': selectValue,
+      'rate': parseInt(selectValue),
       'elementId': asin
     };
 
@@ -45,6 +47,53 @@ function CommentArea({ asin, showModal, handleCloseModal }) {
     setSelectValue("");
   };
 
+  // Edit review handler
+  const handleEditReview = (review) => {
+    setInputValue(review.comment);
+    setSelectValue(review.rate.toString());
+    setEditingReview(review);
+  };
+
+  // Update review handler
+  const handleUpdateReview = () => {
+    if (editingReview) {
+      const updatedReview = {
+        'comment': inputValue,
+        'rate': parseInt(selectValue),
+        'elementId': asin
+      };
+
+      // Fetch - PUT
+      fetch(`${url}${editingReview._id}`, {
+        method: "PUT",
+        headers: headers,
+        body: JSON.stringify(updatedReview),
+      })
+        .then(response => response.json())
+        .then(data => {
+          const updatedReviews = reviews.map(r => r._id === editingReview._id ? data : r);
+          setReviews(updatedReviews);
+          setEditingReview(null);
+          setInputValue("");
+          setSelectValue("");
+        });
+    }
+  };
+
+  // Delete review handler
+  const handleDeleteReview = (review) => {
+    // Fetch - DELETE
+    fetch(`${url}${review._id}`, {
+      method: "DELETE",
+      headers: headers,
+    })
+      .then(response => {
+        if (response.ok) {
+          setReviews(reviews.filter(r => r._id !== review._id));
+        }
+      });
+  };
+
   return (
     <Modal show={showModal} onHide={handleCloseModal}>
       <Modal.Header closeButton>
@@ -52,9 +101,19 @@ function CommentArea({ asin, showModal, handleCloseModal }) {
       </Modal.Header>
 
       <Modal.Body>
-      <ul>
+        <ul>
           {reviews.map(review => (
-            <li key={review._id}>{review.comment} - {review.rate}/{rates.length}</li>
+            <li key={review._id}>
+              {review.comment} - {review.rate}/{rates.length}
+              <Button variant="warning" onClick={() => { handleEditReview(review) }}>
+                <i className="bi bi-pencil-square pe-2"></i>
+                Edit
+              </Button>
+              <Button variant="danger" onClick={() => { handleDeleteReview(review) }}>
+              <i className="bi bi-trash pe-2"></i>
+                Delete
+              </Button>
+            </li>
           ))}
         </ul>
         <textarea
@@ -78,7 +137,11 @@ function CommentArea({ asin, showModal, handleCloseModal }) {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button onClick={handleNewReview}>Add review</Button>
+        {editingReview ? (
+          <Button variant="warning" onClick={handleUpdateReview}>Update review</Button>
+        ) : (
+          <Button variant="success" onClick={handleCreateReview}>Add review</Button>
+        )}
       </Modal.Footer>
     </Modal>
   );
