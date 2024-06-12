@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import Header from './components/Header'
 import Home from './pages/Home'
-import BookPage from './pages/Book'
+import BookDetails from './pages/BookDetails'
+import NotFound from './pages/NotFound'
 import Footer from './components/Footer'
 import fantasy from './data/fantasy.json'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,7 +19,8 @@ function App() {
       <Header search={search} handleSearch={handleSearch} />
       <Routes>
         <Route path="/" element={<Container><Home search={search} books={fantasy} /></Container>} />
-        <Route path="/book/:id/" element={<Container><BookPage /></Container>} />
+        <Route path="/book/:asin/" element={<Container><BookDetails /></Container>} />
+        <Route path="*" element={<Container><NotFound /></Container>} />
       </Routes>
       <Footer />
     </Router>

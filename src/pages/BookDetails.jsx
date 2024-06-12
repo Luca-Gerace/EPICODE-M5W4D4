@@ -3,14 +3,14 @@ import { useState, useEffect } from 'react';
 import fantasy from '../data/fantasy.json';
 
 function BookPage() {
-  const { id } = useParams();
+  const { asin } = useParams();
   const [book, setBook] = useState();
 
   useEffect(() => {
     // Recupero i dettagli del libro da fantasy.json
-    const bookDetail = fantasy.find(b => b.asin === id);
+    const bookDetail = fantasy.find(b => b.asin === asin);
     setBook(bookDetail);
-  }, [id]);
+  }, [asin]);
 
   if (!book) {
     return <div>Loading...</div>;
