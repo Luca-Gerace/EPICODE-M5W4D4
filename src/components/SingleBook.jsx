@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { Badge, Card, Col } from 'react-bootstrap'
+import { Link } from "react-router-dom";
 import CommentArea from './CommentArea';
 
 export default function SingleBook({ book }) {
+
+  const bookPageUrl = `/book/${book.asin}`;
 
   // Hooks
   const [showModal, setShowModal] = useState(false);
@@ -35,6 +38,7 @@ export default function SingleBook({ book }) {
             <Card.Text className='fs-6 fw-bold m-0'>${book.price}</Card.Text>
             <Badge bg="secondary">{book.category}</Badge>
           </div>
+          <Link to={bookPageUrl}>View book details</Link>
         </Card.Body>
       </Card>
       <CommentArea asin={book.asin} showModal={showModal} handleCloseModal={handleCloseModal} />
