@@ -15,7 +15,7 @@ function App() {
     <>
       <Header search={search} handleSearch={handleSearch} />
       <Container>
-        <AllTheBooks books={fantasy} />
+        <AllTheBooks books={fantasy} search={search} />
       </Container>
       <Footer />
     </>

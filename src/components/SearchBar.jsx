@@ -1,7 +1,5 @@
-// import React from 'react'
 import { Form } from 'react-bootstrap'
 
-// eslint-disable-next-line react/prop-types
 export default function SearchBar({ search, handleSearch }) {
 
   return (
