@@ -1,12 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button, Dropdown, Modal } from 'react-bootstrap';
+import axios from '../modules/ApiAxios';
 import "bootstrap-icons/font/bootstrap-icons.css";
-
-const url = 'https://striveschool-api.herokuapp.com/api/comments/';
-const headers = {
-  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjNhNmU2OTBiM2IyNTAwMTUxYjU1NzYiLCJpYXQiOjE3MTcyMzEzODIsImV4cCI6MTcxODQ0MDk4Mn0.cdURqpRo5x4tub6GqqUKI3x2ntlLGqOPaLj46UuQW-c",
-  "Content-Type": "application/json"
-};
 
 function CommentModal({ asin, showModal, handleCloseModal }) {
   // Hooks
@@ -20,7 +15,7 @@ function CommentModal({ asin, showModal, handleCloseModal }) {
 
   useEffect(() => {
     // Fetch - GET
-    fetch(`https://striveschool-api.herokuapp.com/api/books/${asin}/comments/`, { headers })
+    axios.get(`books/${asin}/comments`)
       .then(response => response.json())
       .then(data => setReviews(data));
   }, [asin]);
@@ -34,11 +29,7 @@ function CommentModal({ asin, showModal, handleCloseModal }) {
     };
 
     // Fetch - POST
-    fetch(url, {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(newReview),
-    })
+    axios.post('comments', {body: JSON.stringify(newReview),})
       .then(response => response.json())
       .then(data => setReviews([...reviews, data]));
 
@@ -64,11 +55,7 @@ function CommentModal({ asin, showModal, handleCloseModal }) {
       };
 
       // Fetch - PUT
-      fetch(`${url}${editingReview._id}`, {
-        method: "PUT",
-        headers: headers,
-        body: JSON.stringify(updatedReview),
-      })
+      axios.put(`comments/${editingReview._id}`, {body: JSON.stringify(updatedReview),})
         .then(response => response.json())
         .then(data => {
           const updatedReviews = reviews.map(r => r._id === editingReview._id ? data : r);
@@ -83,10 +70,7 @@ function CommentModal({ asin, showModal, handleCloseModal }) {
   // Delete review handler
   const handleDeleteReview = (review) => {
     // Fetch - DELETE
-    fetch(`${url}${review._id}`, {
-      method: "DELETE",
-      headers: headers,
-    })
+    axios.delete(`comments/${review._id}`)
       .then(response => {
         if (response.ok) {
           setReviews(reviews.filter(r => r._id !== review._id));

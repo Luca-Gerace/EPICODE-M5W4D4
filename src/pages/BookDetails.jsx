@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import CommentArea from '../components/CommentArea';
 import CommentModal from '../components/CommentModal';
 import { Row, Col } from 'react-bootstrap';
+import axios from '../modules/ApiAxios';
 
 function BookPage({ books }) {
 
@@ -21,12 +22,7 @@ function BookPage({ books }) {
   }, [book]);
 
   const fetchComments = (asin) => {
-    fetch(`https://striveschool-api.herokuapp.com/api/books/${asin}/comments/`, {
-      headers: {
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjNhNmU2OTBiM2IyNTAwMTUxYjU1NzYiLCJpYXQiOjE3MTcyMzEzODIsImV4cCI6MTcxODQ0MDk4Mn0.cdURqpRo5x4tub6GqqUKI3x2ntlLGqOPaLj46UuQW-c",
-        "Content-Type": "application/json"
-      }
-    })
+    axios.get(`books/${asin}/comments/`)
       .then(response => response.json())
       .then(data => setComments(data));
   };
