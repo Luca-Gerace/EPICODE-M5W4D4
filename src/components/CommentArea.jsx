@@ -1,14 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Button, Dropdown, Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import axios from '../modules/ApiAxios';
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-const url = 'https://striveschool-api.herokuapp.com/api/comments/';
-const headers = {
-  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjNhNmU2OTBiM2IyNTAwMTUxYjU1NzYiLCJpYXQiOjE3MTcyMzEzODIsImV4cCI6MTcxODQ0MDk4Mn0.cdURqpRo5x4tub6GqqUKI3x2ntlLGqOPaLj46UuQW-c",
-  "Content-Type": "application/json"
-};
-
-function CommentArea({ asin, showModal, handleCloseModal }) {
+function CommentArea({ asin }) {
   // Hooks
   const [reviews, setReviews] = useState([]);
   const [inputValue, setInputValue] = useState("");
@@ -20,7 +15,7 @@ function CommentArea({ asin, showModal, handleCloseModal }) {
 
   useEffect(() => {
     // Fetch - GET
-    fetch(`https://striveschool-api.herokuapp.com/api/books/${asin}/comments/`, { headers })
+    axios.get(`books/${asin}/comments/`)
       .then(response => response.json())
       .then(data => setReviews(data));
   }, [asin]);
@@ -34,9 +29,7 @@ function CommentArea({ asin, showModal, handleCloseModal }) {
     };
 
     // Fetch - POST
-    fetch(url, {
-      method: "POST",
-      headers: headers,
+    axios.post('comments', {
       body: JSON.stringify(newReview),
     })
       .then(response => response.json())
@@ -64,9 +57,7 @@ function CommentArea({ asin, showModal, handleCloseModal }) {
       };
 
       // Fetch - PUT
-      fetch(`${url}${editingReview._id}`, {
-        method: "PUT",
-        headers: headers,
+      axios.put(`comments/${editingReview._id}`, {
         body: JSON.stringify(updatedReview),
       })
         .then(response => response.json())
@@ -83,10 +74,7 @@ function CommentArea({ asin, showModal, handleCloseModal }) {
   // Delete review handler
   const handleDeleteReview = (review) => {
     // Fetch - DELETE
-    fetch(`${url}${review._id}`, {
-      method: "DELETE",
-      headers: headers,
-    })
+    axios.delete(`comments/${review._id}`)
       .then(response => {
         if (response.ok) {
           setReviews(reviews.filter(r => r._id !== review._id));
@@ -95,55 +83,28 @@ function CommentArea({ asin, showModal, handleCloseModal }) {
   };
 
   return (
-    <Modal show={showModal} onHide={handleCloseModal}>
-      <Modal.Header closeButton>
-        <Modal.Title>Reviews <small>({reviews.length})</small></Modal.Title>
-      </Modal.Header>
-
-      <Modal.Body>
-        <ul>
-          {reviews.map(review => (
-            <li key={review._id}>
-              {review.comment} - {review.rate}/{rates.length}
-              <Button variant="warning" onClick={() => { handleEditReview(review) }}>
-                <i className="bi bi-pencil-square pe-2"></i>
-                Edit
-              </Button>
-              <Button variant="danger" onClick={() => { handleDeleteReview(review) }}>
-              <i className="bi bi-trash pe-2"></i>
-                Delete
-              </Button>
-            </li>
-          ))}
-        </ul>
-        <textarea
-          type="text"
-          className='w-100'
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Write a review"
-        />
-        <Dropdown onSelect={(e) => setSelectValue(e)}>
-          <Dropdown.Toggle>
-            {selectValue ? `Rate: ${selectValue}` : 'Add rate'}
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu>
-            {rates.map(rate => (
-              <Dropdown.Item key={rate} eventKey={rate.toString()}>{rate}</Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
-      </Modal.Body>
-
-      <Modal.Footer>
-        {editingReview ? (
-          <Button variant="warning" onClick={handleUpdateReview}>Update review</Button>
-        ) : (
-          <Button variant="success" onClick={handleCreateReview}>Add review</Button>
-        )}
-      </Modal.Footer>
-    </Modal>
+    <>
+      <h3>Reviews <small>({reviews.length})</small></h3>
+      <ul>
+        {reviews.map(review => (
+          <li key={review._id}>
+            {review.comment} - {review.rate}/{rates.length}
+            {review.author === 'geraceluca91@gmail.com' && (
+              <>
+                <Button variant="warning" onClick={() => handleEditReview(review)}>
+                  <i className="bi bi-pencil-square pe-2"></i>
+                  Edit
+                </Button>
+                <Button variant="danger" onClick={() => handleDeleteReview(review)}>
+                  <i className="bi bi-trash pe-2"></i>
+                  Delete
+                </Button>
+              </>
+            )}
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 

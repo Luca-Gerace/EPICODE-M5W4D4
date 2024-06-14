@@ -1,6 +1,8 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import SearchBar from './SearchBar'
+import SearchBar from '../SearchBar'
 import { Link, NavLink } from 'react-router-dom';
+import epiBookLogoDark from '/epibook-logo-dark.png';
+// import epiBookLogoLight from '/epibook-logo-light.png';
 
 function Header({ search, handleSearch }) {
 
@@ -9,7 +11,7 @@ function Header({ search, handleSearch }) {
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container>
                     <Navbar.Brand as={Link} to="/">
-                        LOGO
+                        <img src={epiBookLogoDark} alt="Epibooks logo" className="logo" />
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">

@@ -1,30 +1,16 @@
-import { useState } from 'react';
-import { Badge, Card, Col } from 'react-bootstrap'
+import { Badge, Button, Card, Col } from 'react-bootstrap'
 import { Link } from "react-router-dom";
-import CommentArea from './CommentArea';
+import { ChevronRight } from 'react-bootstrap-icons';
 
 export default function SingleBook({ book }) {
 
   const bookPageUrl = `/book/${book.asin}`;
 
-  // Hooks
-  const [showModal, setShowModal] = useState(false);
-
-  // Card handler
-  const handleCardClick = () => {
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
   return (
     <Col xs={12} md={6} lg={3} className='pb-4'>
       <Card
         role="button" 
-        className={`book-cover d-flex flex-column p-4 border-2 ${showModal ? 'border-danger' : ''}`}
-        onClick={handleCardClick} 
+        className={`book-cover d-flex flex-column p-4 border-2`}
       >
         <Card.Img 
           variant="top" 
@@ -33,15 +19,17 @@ export default function SingleBook({ book }) {
           style={{ height: '400px'}} 
         />
         <Card.Body className='px-0 pb-0'>
-          <Card.Title className='fs-6 text-nowrap overflow-x-hidden'>{book.title}</Card.Title>
-          <div className='d-flex align-items-center justify-content-between pt-2'>
+          <Card.Title className='fs-6 text-nowrap overflow-x-hidden m-0'>{book.title}</Card.Title>
+          <div className='d-flex align-items-center justify-content-between py-3'>
             <Card.Text className='fs-6 fw-bold m-0'>${book.price}</Card.Text>
             <Badge bg="secondary">{book.category}</Badge>
           </div>
-          <Link to={bookPageUrl}>View book details</Link>
+          <Button className='primaryBg w-100 d-flex justify-content-center align-items-center border-0 py-3' as={Link} to={bookPageUrl}>
+            View book details
+            <ChevronRight  className='ms-2'/>
+          </Button>
         </Card.Body>
       </Card>
-      <CommentArea asin={book.asin} showModal={showModal} handleCloseModal={handleCloseModal} />
     </Col>
   );
 }

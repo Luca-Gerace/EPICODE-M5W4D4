@@ -1,0 +1,11 @@
+.logo {
+    height: 3em;
+}
+
+.primaryBg {
+    background-color: #a94bff;
+}
+
+.primaryBg:hover {
+    background-color: #8534ce;
+}
