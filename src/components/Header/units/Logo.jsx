@@ -1,11 +1,13 @@
-import logoDark from '../../../../public/epibook-logo-dark.png';
-import logoLight from '../../../../public/epibook-logo-light.png';
-
-// TODO - remove me and pass prop to logo component
-const theme = 'dark';
+import { useContext } from 'react';
+import logo from '../../../../public/epibooks-logo.png';
+import Context from '../../../modules/Context';
 
 export default function Logo() {
+  
+  // Theme prop
+  const { theme } = useContext(Context);
+
   return (
-    <img src={theme === 'light' ? logoLight : logoDark} alt="Epibooks logo" className="logo" />
+    <img className={`${theme === 'light' ? 'filter' : '' } logo`} src={logo} alt="Epibooks logo" />
   )
 }

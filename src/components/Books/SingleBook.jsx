@@ -1,17 +1,21 @@
+import { useContext } from 'react';
 import { Badge, Button, Card, Col } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 import { ChevronRight } from 'react-bootstrap-icons';
+import Context from '../../modules/Context';
 
 export default function SingleBook({ book, isSelected, handleCardClick }) {
 
   const bookPageUrl = `/book/${book.asin}`;
+
+  const { theme } = useContext(Context);
 
   return (
     <Col xs={12} md={6} lg={3} className='pb-4'>
       <Card
         role="button"
         onClick={handleCardClick} 
-        className={`book-cover d-flex flex-column p-4 border-2 ${isSelected ? 'border-danger' : ''}`}
+        className={`book-cover d-flex flex-column p-4 border-2 ${isSelected ? 'border-danger' : ''} bg-theme-${theme} shadow`}
       >
         <Card.Img 
           variant="top" 

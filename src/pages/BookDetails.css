@@ -1,0 +1,12 @@
+.book-img {
+  height: 400px;
+  width: 300px;
+}
+
+@media (max-width: 576px) {
+  .book-img {
+    height: unset;
+    width: 100%;
+    margin-top: -30px;
+  }
+}

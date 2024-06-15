@@ -1,8 +1,11 @@
 import { Button, Col, Row } from 'react-bootstrap';
 import { Calendar, PencilSquare, PersonCircle, Star, StarFill, Trash } from 'react-bootstrap-icons';
+import Context from '../../../modules/Context';
+import { useContext } from 'react';
 
 export default function SingleComment({ review, handleEditReview, handleDeleteReview }) {
   
+  const { user } = useContext(Context)
   const rate = parseInt(review.rate);
 
   return (
@@ -15,7 +18,7 @@ export default function SingleComment({ review, handleEditReview, handleDeleteRe
         <p className='fw-bold m-0 pb-2'>{review.comment}</p>
         <div className='d-flex justify-content-start align-items-center pb-3'>
           {Array.from({ length: 5 }).map((el, index) => (
-            index < rate ? <StarFill className='text-warning' key={index} /> : <Star className='text-black-50' key={index}/>
+            index < rate ? <StarFill className='text-warning' key={index} /> : <Star className='text-secondary' key={index}/>
           ))}
         </div>
         <div className='d-flex justify-content-start align-items-center pb-2'>
@@ -24,7 +27,7 @@ export default function SingleComment({ review, handleEditReview, handleDeleteRe
         </div>
       </Col>
       <Col xs={2}>
-        {review.author === 'geraceluca91@gmail.com' && (
+        {review.author === user.email && (
           <div className='d-flex justify-content-between align-items-center flex-column'>
             <Button className='text-white d-flex justify-content-center align-items-center mb-2' variant="warning" onClick={() => handleEditReview(review)}>
               <PencilSquare />

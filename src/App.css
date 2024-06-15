@@ -1,15 +1,53 @@
+body.bg-theme-light, .bg-theme-light {
+    background-color: white;
+    color: #242424;
+}
+
+.bg-theme-dark, 
+body.bg-theme-dark, 
+body.bg-theme-dark .modal-content,
+body.bg-theme-dark input, 
+body.bg-theme-dark select, 
+body.bg-theme-dark input:hover, 
+body.bg-theme-dark select:hover,
+body.bg-theme-dark input:focus, 
+body.bg-theme-dark select:focus, 
+body.bg-theme-dark textarea {
+    background-color: #242424;
+    color: white;
+}
+
+body.bg-theme-dark ::placeholder {
+    color: white;
+}
+
 .logo {
     height: 3em;
+}
+
+.userimg {
+    width: 30px;
+}
+
+.userinfo {
+    font-size: 10px;
+}
+
+.filter, 
+body.bg-theme-dark .btn-close {
+    filter: invert(1);
 }
 
 .primaryBg {
     background-color: #a94bff;
 }
 
-.primaryBg:hover {
-    background-color: #8534ce;
+.primaryBg:hover, 
+.primaryBg:focus-visible,
+.primaryBg:active {
+    background-color: #8534ce !important;
 }
 
 .main {
-    padding-top: 125px;
+    padding-top: 150px;
 }
