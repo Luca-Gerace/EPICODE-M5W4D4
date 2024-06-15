@@ -9,3 +9,7 @@
 .primaryBg:hover {
     background-color: #8534ce;
 }
+
+.main {
+    padding-top: 125px;
+}

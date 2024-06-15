@@ -1,12 +1,12 @@
-import AllTheBooks from '../components/AllTheBooks'
-import Filter from '../components/Filter'
+import AllTheBooks from '../components/Books/AllTheBooks'
+import BookFilter from '../components/Books/BookFilter'
 import Welcome from '../components/Welcome/Welcome'
 
 export default function Home({ books, search, filter, handleFilter }) {
   return (
     <>
       <Welcome />
-      <Filter filter={filter} handleFilter={handleFilter} />
+      <BookFilter filter={filter} handleFilter={handleFilter} />
       <AllTheBooks books={books} search={search} />
     </>
   )

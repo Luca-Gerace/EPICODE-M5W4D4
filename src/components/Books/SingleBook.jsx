@@ -2,15 +2,16 @@ import { Badge, Button, Card, Col } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 import { ChevronRight } from 'react-bootstrap-icons';
 
-export default function SingleBook({ book }) {
+export default function SingleBook({ book, isSelected, handleCardClick }) {
 
   const bookPageUrl = `/book/${book.asin}`;
 
   return (
     <Col xs={12} md={6} lg={3} className='pb-4'>
       <Card
-        role="button" 
-        className={`book-cover d-flex flex-column p-4 border-2`}
+        role="button"
+        onClick={handleCardClick} 
+        className={`book-cover d-flex flex-column p-4 border-2 ${isSelected ? 'border-danger' : ''}`}
       >
         <Card.Img 
           variant="top" 

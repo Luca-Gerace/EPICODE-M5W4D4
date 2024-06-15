@@ -9,14 +9,19 @@ function Header({ search, handleSearch }) {
 
     return (
         <header>
-            <Navbar expand="lg" className="bg-body-tertiary">
+            <Navbar expand="lg" className="bg-body-tertiary position-fixed w-100 top-0 z-1">
                 <Container>
-                    <Nav>
+                    <Nav className='w-100 d-flex align-items-center justify-content-between'>
                         <Navbar.Brand as={Link} to="/"><Logo /></Navbar.Brand>
-                        <SearchBar search={search} handleSearch={handleSearch} />
-                        <div>
-                            <UserTab />
+                        <div className='d-block md-d-none'>
+                            <SearchBar search={search} handleSearch={handleSearch} />
+                        </div>
+                        <div className='d-flex'>
+                            <UserTab className='me-2' />
                             <ThemeToggle />
+                        </div>
+                        <div className='d-none md-d-block'>
+                            <SearchBar search={search} handleSearch={handleSearch} />
                         </div>
                     </Nav>
                 </Container>

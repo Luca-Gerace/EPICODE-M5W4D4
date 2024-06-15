@@ -4,10 +4,10 @@ export default function SearchBar({ search, handleSearch }) {
 
   return (
     <>
-        <Form.Group className='mb-3'>
+        <Form.Group>
             <Form.Control 
                 type='search' 
-                placeholder='cerca un libro' 
+                placeholder='Search a book...' 
                 value={search} 
                 onChange={handleSearch} 
             />

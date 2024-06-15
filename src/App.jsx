@@ -39,7 +39,7 @@ export default function App() {
   return (
     <Router>
       <Header search={search} handleSearch={handleSearch} />
-      <Container className='pt-4 mt-4 h-100'>
+      <Container className='main'>
         <Routes>
           <Route path="/" element={<Home books={filteredBooks} search={search} filter={filter} handleFilter={handleFilter} />} />
           <Route path="/book/:asin/" element={<BookDetails books={books} />} />

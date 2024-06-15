@@ -1,6 +1,6 @@
 import { Form } from 'react-bootstrap';
 
-export default function Filter({ filter, handleFilter }) {
+export default function BookFilter({ filter, handleFilter }) {
   return (
     <Form>
       <Form.Group controlId="filter">
