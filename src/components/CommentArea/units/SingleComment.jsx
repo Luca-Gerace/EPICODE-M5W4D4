@@ -6,9 +6,9 @@ export default function SingleComment({ review, handleEditReview, handleDeleteRe
   const rate = parseInt(review.rate);
 
   return (
-    <Row>
-      <Col xs={ review.author === 'geraceluca91@gmail.com' ? 10 : 12}>
-        <div className='d-flex justify-content-start align-items-center pb-2 pt-3 mt-2 border-top'>
+    <Row className=' pt-3 mt-2 border-top'>
+      <Col xs={10}>
+        <div className='d-flex justify-content-start align-items-center pb-2'>
           <PersonCircle className='me-2' /> 
           <small>{review.author}</small>
         </div>
@@ -23,18 +23,18 @@ export default function SingleComment({ review, handleEditReview, handleDeleteRe
           <small>{review.updatedAt}</small>
         </div>
       </Col>
-      {review.author === 'geraceluca91@gmail.com' && (
-        <Col xs={2}>
-            <div className='d-flex justify-content-between align-items-center flex-column'>
-              <Button className='text-white d-flex justify-content-center align-items-center mb-2' variant="warning" onClick={() => handleEditReview(review)}>
-                <PencilSquare />
-              </Button>
-              <Button className='d-flex justify-content-center align-items-center' variant="danger" onClick={() => handleDeleteReview(review)}>
-                <Trash />
-              </Button>
-            </div>
-        </Col>
-      )}
+      <Col xs={2}>
+        {review.author === 'geraceluca91@gmail.com' && (
+          <div className='d-flex justify-content-between align-items-center flex-column'>
+            <Button className='text-white d-flex justify-content-center align-items-center mb-2' variant="warning" onClick={() => handleEditReview(review)}>
+              <PencilSquare />
+            </Button>
+            <Button className='d-flex justify-content-center align-items-center' variant="danger" onClick={() => handleDeleteReview(review)}>
+              <Trash />
+            </Button>
+          </div>
+        )}
+      </Col>
     </Row>
   );
 }

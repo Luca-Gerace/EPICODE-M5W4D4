@@ -56,7 +56,7 @@ export default function UpdateCommentModal({ showModal, handleCloseModal, commen
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="warning" onClick={handleUpdateReview}>Update review</Button>
+        <Button className='w-100 py-2' variant="warning" onClick={handleUpdateReview}>Update review</Button>
       </Modal.Footer>
     </Modal>
   );

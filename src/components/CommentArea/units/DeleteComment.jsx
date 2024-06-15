@@ -25,8 +25,7 @@ export default function DeleteCommentModal({ showModal, handleCloseModal, commen
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="danger" onClick={handleDeleteReview}>Delete review</Button>
-        <Button variant="secondary" onClick={handleCloseModal}>Cancel</Button>
+        <Button  className='w-100 py-2' variant="danger" onClick={handleDeleteReview}>Delete review</Button>
       </Modal.Footer>
     </Modal>
   );

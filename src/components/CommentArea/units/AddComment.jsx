@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button, Dropdown, Modal } from 'react-bootstrap';
 import axios from '../../../modules/ApiAxios';
-import "bootstrap-icons/font/bootstrap-icons.css";
 
 export default function CommentModal({ asin, showModal, handleCloseModal, handleUpdateComments }) {
 
@@ -25,12 +24,13 @@ export default function CommentModal({ asin, showModal, handleCloseModal, handle
       'elementId': asin
     };
 
-    axios.post('comments', newReview)
+    axios.post(`comments`, newReview)
       .then(response => {
         setReviews([...reviews, response.data]);
         handleUpdateComments([...reviews, response.data]);
         setInputValue("");
         setSelectValue("");
+        handleCloseModal();
       });
   };
 
@@ -46,6 +46,7 @@ export default function CommentModal({ asin, showModal, handleCloseModal, handle
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Write a review"
+          required
         />
         <Dropdown onSelect={(e) => setSelectValue(e)}>
           <Dropdown.Toggle>
@@ -60,7 +61,9 @@ export default function CommentModal({ asin, showModal, handleCloseModal, handle
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="success" onClick={handleCreateReview}>Add review</Button>
+        <Button className='w-100 py-2' variant="success" onClick={handleCreateReview}>
+          Confirm
+        </Button>
       </Modal.Footer>
     </Modal>
   );
