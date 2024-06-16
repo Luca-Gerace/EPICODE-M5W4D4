@@ -29,7 +29,7 @@ export default function SingleComment({ review, handleEditReview, handleDeleteRe
       <Col xs={2}>
         {review.author === user.email && (
           <div className='d-flex justify-content-between align-items-center flex-column'>
-            <Button className='text-white d-flex justify-content-center align-items-center mb-2' variant="warning" onClick={() => handleEditReview(review)}>
+            <Button className='text-white d-flex justify-content-center align-items-center mb-4 mb-md-3' variant="warning" onClick={() => handleEditReview(review)}>
               <PencilSquare />
             </Button>
             <Button className='d-flex justify-content-center align-items-center' variant="danger" onClick={() => handleDeleteReview(review)}>

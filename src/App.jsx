@@ -8,8 +8,8 @@ import history from './data/history.json';
 import romance from './data/romance.json';
 import scifi from './data/scifi.json';
 // Components
-import Header from './components/Header/Header';
 import { Container } from 'react-bootstrap'
+import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 // Context
 import Context from './modules/Context';
