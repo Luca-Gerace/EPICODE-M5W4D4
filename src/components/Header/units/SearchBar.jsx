@@ -6,6 +6,7 @@ export default function SearchBar({ search, handleSearch }) {
     <>
         <Form.Group>
             <Form.Control 
+                className='rounded-pill'
                 type='search' 
                 placeholder='Search a book...' 
                 value={search} 
