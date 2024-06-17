@@ -6,7 +6,7 @@ Per eseguire questo progetto in locale, segui questi passaggi:
 1. Clona il repository: `git clone https://github.com/Luca-Gerace/EPICODE-M5W5D4.git`
 2. Carica la folder sul tuo IDE di fiducia
 3. Entra da terminale nella folder: `cd EPICODE-M5W5D4`
-4. Lancia l'installazione dei pacchetti necessari al funzionamento dell'app: `npm -i`
+4. Lancia l'installazione dei pacchetti necessari al funzionamento dell'app: `npm install`
 5. Lancia il comando per runnare il progetto in locale: `npm run dev`
 6. Naviga l'app su browser al seguente indirizzo: `http://localhost:5173/`
 7. Per eseguire i test unitari lancia il seguente comando: `npm test`
