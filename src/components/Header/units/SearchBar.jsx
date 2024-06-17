@@ -6,11 +6,11 @@ export default function SearchBar({ search, handleSearch }) {
     <>
         <Form.Group>
             <Form.Control 
-                className='rounded-pill'
+                className='rounded-pill searchBar'
                 type='search' 
                 placeholder='Search a book...' 
                 value={search} 
-                onChange={handleSearch} 
+                onChange={handleSearch}
             />
         </Form.Group>
     </>

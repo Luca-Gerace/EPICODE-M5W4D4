@@ -6,6 +6,7 @@ import Context from '../../modules/Context';
 
 export default function SingleBook({ book, isSelected, handleCardClick }) {
 
+  // Url per navigare la pagina bookdetails
   const bookPageUrl = `/book/${book.asin}`;
 
   const { theme } = useContext(Context);
@@ -14,6 +15,7 @@ export default function SingleBook({ book, isSelected, handleCardClick }) {
     <Col xs={12} md={6} lg={3} className='pb-4'>
       <Card
         role="button"
+        data-testid='card'
         onClick={handleCardClick} 
         className={`book-cover d-flex flex-column p-4 border-2 ${isSelected ? 'border-danger' : ''} bg-theme-${theme} shadow`}
       >

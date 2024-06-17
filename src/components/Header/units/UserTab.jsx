@@ -3,6 +3,7 @@ import Context from '../../../modules/Context';
 
 export default function UserTab() {
 
+  // user props
   const { user } = useContext(Context)
 
   return (

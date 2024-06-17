@@ -2,11 +2,18 @@ import { Button, Col, Row } from 'react-bootstrap';
 import { Calendar, PencilSquare, PersonCircle, Star, StarFill, Trash } from 'react-bootstrap-icons';
 import Context from '../../../modules/Context';
 import { useContext } from 'react';
+import { format } from 'date-fns';
 
 export default function SingleComment({ review, handleEditReview, handleDeleteReview }) {
   
   const { user } = useContext(Context)
   const rate = parseInt(review.rate);
+
+  // Funzione per formattare la data
+  const formatDateTime = (dateTimeString) => {
+    const formattedDate = format(new Date(dateTimeString), "yyyy-MM-dd 'at' HH:mm");
+    return formattedDate;
+  };
 
   return (
     <Row className=' pt-3 mt-2 border-top'>
@@ -15,7 +22,7 @@ export default function SingleComment({ review, handleEditReview, handleDeleteRe
           <PersonCircle className='me-2' /> 
           <small>{review.author}</small>
         </div>
-        <p className='fw-bold m-0 pb-2'>{review.comment}</p>
+        <p data-testid='comment' className='fw-bold m-0 pb-2'>{review.comment}</p>
         <div className='d-flex justify-content-start align-items-center pb-3'>
           {Array.from({ length: 5 }).map((el, index) => (
             index < rate ? <StarFill className='text-warning' key={index} /> : <Star className='text-secondary' key={index}/>
@@ -23,7 +30,7 @@ export default function SingleComment({ review, handleEditReview, handleDeleteRe
         </div>
         <div className='d-flex justify-content-start align-items-center pb-2'>
           <Calendar className='me-2' /> 
-          <small>{review.updatedAt}</small>
+          <small>{formatDateTime(review.updatedAt)}</small>
         </div>
       </Col>
       <Col xs={2}>

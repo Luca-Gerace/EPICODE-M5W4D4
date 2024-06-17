@@ -9,14 +9,15 @@ export default function CommentModal({ asin, showModal, handleCloseModal, handle
   const [inputValue, setInputValue] = useState("");
   const [selectValue, setSelectValue] = useState("");
 
-  
   useEffect(() => {
     axios.get(`books/${asin}/comments`)
     .then(response => setReviews(response.data));
   }, [asin]);
-  
+
+  // Array dei voti
   const rates = [1, 2, 3, 4, 5];
   
+  // Handler per la create di una review/commento
   const handleCreateReview = () => {
     const newReview = {
       'comment': inputValue,

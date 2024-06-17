@@ -9,7 +9,7 @@ import ThemeToggle from './units/ThemeToggle';
 
 export default function Header({ search, handleSearch }) {
 
-    // Check page location - if location is homepage hide searchbar
+    // Check page location - Se la location è la home ('/') allora nascondo la searchbar
     const location = useLocation();
     const isHomePage = location.pathname === '/';
 

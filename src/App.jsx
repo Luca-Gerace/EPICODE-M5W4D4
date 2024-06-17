@@ -15,7 +15,7 @@ import Footer from './components/Footer/Footer';
 import Context from './modules/Context';
 // Pages
 import Home from './pages/Home';
-import BookDetails from './pages/BookDetails';
+import BookDetails from './pages/BookDetails/BookDetails';
 import NotFound from './pages/NotFound';
 
 export default function App() {

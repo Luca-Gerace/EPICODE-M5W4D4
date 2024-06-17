@@ -3,9 +3,10 @@ import SingleBook from './SingleBook'
 import { useState } from 'react';
 
 const AlltheBooks = ({ books, search }) => {
-
+  // Hook
   const [selectedBook, setSelectedBook] = useState(null);
 
+  // Handler
   const handleCardClick = (book) => {
     setSelectedBook(book === selectedBook ? null : book);
   };

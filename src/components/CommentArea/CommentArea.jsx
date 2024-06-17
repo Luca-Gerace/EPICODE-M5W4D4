@@ -17,7 +17,7 @@ export default function CommentArea({ asin, comments, handleUpdateComments }) {
   };
 
   return (
-    <div className='review-container'>
+    <div data-testid='commentArea' className='review-container'>
       <div className='d-flex align-items-center justify-content-between pb-2'>
         <h4 className='m-0'>Reviews <small>({comments.length})</small></h4>
         <Button className='d-flex justify-content-center align-items-center' variant="success" onClick={handleOpenModal}>

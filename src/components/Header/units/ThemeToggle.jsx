@@ -12,6 +12,7 @@ export default function ThemeToggle() {
     <div className='d-flex align-items-center border p-2 rounded-pill'>
       <Sun className='me-2' />
       <Switch
+      data-testid='toggle'
       onChange={toggleTheme}
       checked={theme === 'dark'}
       offColor="#DDD"
