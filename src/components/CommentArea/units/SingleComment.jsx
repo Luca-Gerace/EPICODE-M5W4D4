@@ -6,8 +6,9 @@ import { format } from 'date-fns';
 
 export default function SingleComment({ review, handleEditReview, handleDeleteReview }) {
   
-  // Hooks
-  const { user } = useContext(Context)
+  // Utilizzo la prop user passata dal context per permettere di fare update/delete SOLO dei commenti scritti dallo user "loggato"
+  const { user } = useContext(Context);
+
   const rate = parseInt(review.rate);
 
   // Funzione per formattare la data
