@@ -1,23 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button, Dropdown, Modal } from 'react-bootstrap';
 import axios from '../../../modules/ApiAxios';
 
-export default function CommentModal({ asin, showModal, handleCloseModal, handleUpdateComments }) {
+export default function CommentModal({ asin, showModal, handleCloseModal, handleUpdateCommentArea }) {
 
-  // Hooks
-  const [reviews, setReviews] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [selectValue, setSelectValue] = useState("");
 
-  useEffect(() => {
-    axios.get(`books/${asin}/comments`)
-    .then(response => setReviews(response.data));
-  }, [asin]);
-
-  // Array dei voti
   const rates = [1, 2, 3, 4, 5];
-  
-  // Handler per la create di una review/commento
+
   const handleCreateReview = () => {
     const newReview = {
       'comment': inputValue,
@@ -27,8 +18,7 @@ export default function CommentModal({ asin, showModal, handleCloseModal, handle
 
     axios.post(`comments`, newReview)
       .then(response => {
-        setReviews([...reviews, response.data]);
-        handleUpdateComments([...reviews, response.data]);
+        handleUpdateCommentArea(prevComments => [...prevComments, response.data]);
         setInputValue("");
         setSelectValue("");
         handleCloseModal();

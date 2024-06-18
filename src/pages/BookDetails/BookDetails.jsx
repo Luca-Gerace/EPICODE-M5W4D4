@@ -26,7 +26,7 @@ export default function BookDetails({ books }) {
   };
 
   // Handler per l'update della commentarea
-  const handleUpdateComments = () => {
+  const handleUpdateCommentArea = () => {
     fetchComments(book.asin);
   };
 
@@ -41,7 +41,7 @@ export default function BookDetails({ books }) {
         <p>Category: {book.category}</p>
       </Col>
       <Col xs={12} md={3}>
-        <CommentArea data-testid='commentArea' asin={book.asin} comments={comments} handleUpdateComments={handleUpdateComments} />
+        <CommentArea data-testid='commentArea' asin={book.asin} comments={comments} handleUpdateCommentArea={handleUpdateCommentArea} />
       </Col>
     </Row>
   );
