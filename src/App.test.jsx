@@ -1,10 +1,21 @@
 /* eslint-disable no-undef */
 import { render, screen, fireEvent } from "@testing-library/react";
 import App from "./App";
-import fantasy from  './data/fantasy.json'
-import romance from  './data/romance.json'
+import fantasy from './data/fantasy.json'
+import romance from './data/romance.json'
 
-// Test che verifica la presenza del testo "Welcome"
+// Workaroud trovato su stackoverflow
+// https://stackoverflow.com/questions/39830580/jest-test-fails-typeerror-window-matchmedia-is-not-a-function
+window.matchMedia = window.matchMedia || function() {
+  return {
+      matches: false,
+      addListener: function() {},
+      removeListener: function() {}
+  };
+};
+
+
+// Verifico la presenza del testo "Welcome"
 test("Il componente ha il testo Welcome", () => {
   render(<App />);
 
@@ -24,8 +35,17 @@ test("Presenza di 150 card nel documento", () => {
   expect(cards.length).toBe(fantasy.length);
 });
 
+// Verifico che al caricamento della pagina non ci siano istanze di commentArea
+test("Non sono presenti istanze di CommentArea al caricamento della pagina", () => {
+  render(<App />);
+
+  // Utilizzo queryByTestId che mi ritorna null se non trova l'elemento
+  const commentArea = screen.queryByTestId('OffcanvasCommentArea');
+  expect(commentArea).not.toBeInTheDocument();
+});
+
 // Verifico il corretto funzionamento della searchbar
-test("filtra i libri a seconda del testo inserito in searchbar e verifica la presenza di card", async () => {
+test("Filtro i libri a seconda del testo inserito in searchbar e verifico la presenza di card", async () => {
   // Renderizziamo il componente App
   render(<App />);
 
@@ -43,7 +63,25 @@ test("filtra i libri a seconda del testo inserito in searchbar e verifica la pre
 });
 
 // Verifico che al click sulla card il suo bordo diventi rosso
-test("al click sulla card il suo bordo diventi rosso", () => {
+test("Clicco sulla prima card e verifico che il suo bordo sia rosso", async () => {
+  // Renderizziamo il componente App
+  render(<App />);
+
+  // Cerco le card
+  const cards = await screen.findAllByTestId('card');
+
+  // Seleziono la prima card
+  const firstCard = cards[0];
+
+  // Simulo il click sulla prima card
+  fireEvent.click(firstCard);
+
+  // Mi aspetto che la prima card abbia il bordo rosso
+  expect(firstCard).toHaveClass('border-danger');
+});
+
+// Verifico che al click sulla seconda card il bordo della prima ritorni normale
+test("Clicco sulla prima card, chiudo l'offcanvas e verifico che il suo bordo non sia più rosso", async () => {
   // Renderizziamo il componente App
   render(<App />);
 
@@ -58,20 +96,28 @@ test("al click sulla card il suo bordo diventi rosso", () => {
   // Mi aspetto che la prima card abbia il bordo rosso
   expect(firstCard).toHaveClass('border-danger');
 
-  // Simulo il click sulla seconda card
-  fireEvent.click(secondCard);
+  // Cerco il bottone di chiusura dell'Offcanvas
+  const offcanvasCloseBtn = document.querySelector('.offcanvas-header button');
+
+  // Simulo il click sulla bottone di chiusura dell'Offcanvas
+  fireEvent.click(offcanvasCloseBtn);
 
   // Mi aspetto che la prima card non abbia più il bordo rosso
   expect(firstCard).not.toHaveClass('border-danger');
-  // e che il bordo rosso l'abbia la seconda card
+
+  // Simulo il click sulla seconda card
+  fireEvent.click(secondCard);
+
+  // Mi aspetto che la seconda card abbia il bordo rosso
   expect(secondCard).toHaveClass('border-danger');
 });
 
+// Ultimi due test su 'src/pages/BookDetails/BookDetails.test.jsx'
 
-// TEST EXTRA
+/* TEST EXTRA */
 
 // Verifico il corretto funzionamento del filtro
-test("filtra i libri per categoria 'romance' e verifica la presenza di card", () => {
+test("Filtro i libri per categoria 'romance' e verifico la presenza di card", () => {
   // Renderizziamo il componente App
   render(<App />);
 

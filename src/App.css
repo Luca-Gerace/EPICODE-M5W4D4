@@ -6,6 +6,7 @@ body.bg-theme-light, .bg-theme-light {
 .bg-theme-dark, 
 body.bg-theme-dark, 
 body.bg-theme-dark .modal-content,
+body.bg-theme-dark .offcanvas,
 body.bg-theme-dark input, 
 body.bg-theme-dark select, 
 body.bg-theme-dark input:hover, 

@@ -14,7 +14,7 @@ const mockBooks = [
     },
 ];
 
-// Test che verifica la presenza del componente comment area 
+// Verifico la presenza del componente comment area 
 test("La pagina monta il componente comment area", () => {
     render(
         // Memory router che simula la navigazione di una specifica pagina
@@ -30,7 +30,7 @@ test("La pagina monta il componente comment area", () => {
     expect(commentArea).toBeInTheDocument();
 });
 
-// Test che verifica la presenza dei singoli commenti nel componente comment area 
+// Verifico la presenza dei singoli commenti nel componente comment area 
 test("La pagina monta i singoli commenti nel componente comment area", async () => {
     render(
         <MemoryRouter initialEntries={['/book/0316438960']}>
