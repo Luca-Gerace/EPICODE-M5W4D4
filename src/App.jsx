@@ -20,7 +20,7 @@ import NotFound from './pages/NotFound';
 
 export default function App() {
   // Hooks
-  const [search, setSearch] = useState(''); // Default empty strig
+  const [search, setSearch] = useState(''); // Default stringa vuota
   const [filter, setFilter] = useState('fantasy'); // Default "fantasy"
   const [theme, setTheme] = useState('light'); // Default "light"
 
@@ -43,16 +43,16 @@ export default function App() {
     toggleTheme,
   };
 
-  // Switch body class based on active theme
+  // Switch classe del body in base al tema attivo
   useEffect(() => {
     document.body.className = ''; // Reset
     document.body.classList.add(`bg-theme-${theme}`);
   }, [theme]);
 
-  // Merge all books arrays
+  // Merge di tutti gli array dei libri
   const books = [...fantasy, ...history, ...romance, ...scifi];
   
-  // Filter books based on filter and search
+  // Filtro i libri in base alla select che filtra per categoria e alla barra di ricerca che filtra per titolo
   const filteredBooks = books.filter(book => {
     return (
       // Filter

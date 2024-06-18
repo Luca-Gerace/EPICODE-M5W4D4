@@ -2,8 +2,8 @@ import { createContext } from "react";
 
 const Context = createContext({
     user: {},
-    theme: 'light', // Default theme
-    toggleTheme: () => {}, // Function to toggle theme
+    theme: 'light', // tema di default
+    toggleTheme: () => {}, // Funzione per switch del tema
 });
 
 export default Context;

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import img404 from "../../public/404.svg"
+import img404 from "../../src/assets/404.svg"
 import { Button } from 'react-bootstrap'
 import { ChevronRight } from "react-bootstrap-icons";
 
