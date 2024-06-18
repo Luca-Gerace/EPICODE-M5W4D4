@@ -4,11 +4,13 @@ import axios from '../../../modules/ApiAxios';
 
 export default function CommentModal({ asin, showModal, handleCloseModal, handleUpdateCommentArea }) {
 
+  // Hooks
   const [inputValue, setInputValue] = useState("");
   const [selectValue, setSelectValue] = useState("");
 
   const rates = [1, 2, 3, 4, 5];
 
+  // Handler con chiamata in POST
   const handleCreateReview = () => {
     const newReview = {
       'comment': inputValue,
@@ -33,7 +35,7 @@ export default function CommentModal({ asin, showModal, handleCloseModal, handle
 
       <Modal.Body>
         <textarea
-          className='w-100'
+          className='w-100 p-3 my-3 rounded'
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Write a review"
@@ -41,7 +43,7 @@ export default function CommentModal({ asin, showModal, handleCloseModal, handle
         />
         <Dropdown onSelect={(e) => setSelectValue(e)}>
           <Dropdown.Toggle>
-            {selectValue ? `Rate: ${selectValue}` : 'Add rate'}
+            {selectValue ? `Rate: ${selectValue} ` : 'Add rate '}
           </Dropdown.Toggle>
           <Dropdown.Menu>
             {rates.map(rate => (

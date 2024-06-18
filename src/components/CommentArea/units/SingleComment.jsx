@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 
 export default function SingleComment({ review, handleEditReview, handleDeleteReview }) {
   
+  // Hooks
   const { user } = useContext(Context)
   const rate = parseInt(review.rate);
 

@@ -38,7 +38,7 @@ export default function UpdateCommentModal({ showModal, handleCloseModal, commen
 
       <Modal.Body>
         <textarea
-          className='w-100'
+          className='w-100 p-3 my-3 rounded'
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Update your review"

@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import CommentArea from '../../components/CommentArea/CommentArea';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Badge } from 'react-bootstrap';
+import { Star, StarFill } from 'react-bootstrap-icons';
 import axios from '../../modules/ApiAxios';
 import './BookDetails.css';
 
@@ -25,10 +26,20 @@ export default function BookDetails({ books }) {
       .then(response => setComments(response.data));
   };
 
+  // Funzione che calcola la media dei voti
+  const calculateAverageRate = () => {
+    if (comments.length === 0) return 0;
+    const totalRate = comments.reduce((sum, comment) => sum + comment.rate, 0);
+    return totalRate / comments.length;
+  };
+  
+  const averageRate = calculateAverageRate();
+
   // Handler per l'update della commentarea
   const handleUpdateCommentArea = () => {
     fetchComments(book.asin);
   };
+
 
   return (
     <Row>
@@ -36,9 +47,15 @@ export default function BookDetails({ books }) {
         <img src={book.img} alt={book.title} className='book-img object-fit-cover' />
       </Col>
       <Col xs={12} md={6} className='mb-4 border-end'>
-        <h1>{book.title}</h1>
-        <p>Price: ${book.price}</p>
-        <p>Category: {book.category}</p>
+        <div className="d-flex align-items-center pb-2">
+          {Array.from({ length: 5 }).map((el, index) => (
+            index < averageRate ? <StarFill className='text-warning' key={index} /> : <Star className='text-secondary' key={index} />
+          ))}
+          <span className='ms-2'><strong>{averageRate.toFixed(1)}</strong> ({comments.length})</span>
+        </div>
+        <h1 className='fs-2 pb-2'>{book.title}</h1>
+        <Badge bg="secondary">{book.category}</Badge>
+        <p className='fs-3 pt-2'>${book.price}</p>
       </Col>
       <Col xs={12} md={3}>
         <CommentArea data-testid='commentArea' asin={book.asin} comments={comments} handleUpdateCommentArea={handleUpdateCommentArea} />

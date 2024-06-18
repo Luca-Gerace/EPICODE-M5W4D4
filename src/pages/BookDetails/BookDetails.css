@@ -1,6 +1,11 @@
-.book-img {
-  height: 400px;
-  width: 300px;
+@media (min-width: 768px) {
+  .book-img {
+    height: 400px;
+    width: 300px;
+  }
+  .review-container {
+    min-height: 500px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -8,5 +13,8 @@
     height: unset;
     width: 100%;
     margin-top: -50px;
+  }
+  .border-end {
+    border-right: none !important;
   }
 }

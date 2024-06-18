@@ -1,4 +1,3 @@
-import './CommentArea.css';
 import CommentList from './units/CommentList';
 import AddCommentModal from './units/AddComment';
 import { Button } from 'react-bootstrap';
